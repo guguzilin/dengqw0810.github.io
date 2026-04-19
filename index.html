@@ -10,156 +10,177 @@
 
 <style>
 
-/* ===== 银河背景 ===== */
+/* ===== 全局 ===== */
 body {
     margin: 0;
-    font-family: -apple-system;
-    background: url("images/galaxy.jpg");
-    background-size: cover;
-    background-repeat: repeat-y; /* 自动拼接 */
-    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
 }
 
-/* ===== 模块卡片 ===== */
 .section {
-    margin: 15px;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
 
-    /* 蓝色发光边框 */
-    box-shadow: 0 0 10px rgba(80,150,255,0.3),
-                0 0 20px rgba(80,150,255,0.2);
+.card {
+    will-change: transform;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(16px);
+
+    background-image: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.7),
+        rgba(240,242,246,0.6)
+    );
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.05),
+        0 10px 30px rgba(0,0,0,0.08);
+
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* 👇 hover 强制无延迟（关键） */
+.card:hover,
+.card.active {
+
+    transform: translateY(-8px) scale(1.04);
+
+    background-image: linear-gradient(
+        145deg,
+        rgba(244, 247, 254, 0.95),
+        rgba(219, 222, 233, 0.75)
+    );
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.10),
+        0 30px 60px rgba(0,0,0,0.15);
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.04);
+
+    background-image: linear-gradient(
+        145deg,
+        rgba(244, 247, 254, 0.95),
+        rgba(219, 222, 233, 0.75)
+    );
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.10),
+        0 30px 60px rgba(0,0,0,0.15);
+}
+
+.card.active {
+    transform: translateY(-8px) scale(1.04);
+
+    background-image: linear-gradient(
+        145deg,
+        rgba(240, 244, 255, 0.95),
+        rgba(210, 220, 245, 0.75)
+    );
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.10),
+        0 30px 60px rgba(0,0,0,0.15);
+}
+
+.big-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 80px;
+}
+
+.sub-big {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .title {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 600;
 }
 
-.subtitle {
-    margin-top: 15px;
-    font-size: 16px;
+.desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #6e6e73;
+    margin-top: 8px;
 }
 
-/* 模型 */
 model-viewer {
     width: 100%;
     height: 50vh;
-    min-height: 250px;
-
-    background: radial-gradient(circle at center, #15151f, #ffffff);
-    border-radius: 12px;
+    min-height: 260px;
+    background: #fff;
+    border-radius: 16px;
 }
 
-/* 模型容器 */
 .model-box {
-    max-width: 700px;
-    margin: 15px auto;
-    padding: 10px;
-
-    background: rgba(169, 177, 189, 0.4);
-    border-radius: 14px;
-
-    box-shadow:
-        0 0 15px rgba(80,150,255,0.4),
-        0 0 30px rgba(80,150,255,0.2);
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-/* 图片 */
-img {
-    border-radius: 8px;
-}
 .normal-img {
-    width: 70%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
     display: block;
-    margin: 15px auto;
-
-    border-radius: 10px;
-
-    border: 2px solid rgba(120,180,255,0.6);
-
-    box-shadow:
-        0 0 10px rgba(80,150,255,0.5),
-        0 0 20px rgba(80,150,255,0.3);
-}
-
-.gct-img {
-       width: 100%;          /* ⬅️ 限制在容器内 */
-    height: auto;
-
-    flex-shrink: 0;     /* ⬅️ 防止被压扁（关键） */
-    align-self: center; /* ⬅️ 避免被拉伸 */
-
-    border-radius: 10px;
-
-    border: 2px solid rgba(120,180,255,0.6);
-
-    box-shadow:
-        0 0 10px rgba(80,150,255,0.5),
-        0 0 20px rgba(80,150,255,0.3);
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 .hobby-scroll {
     display: flex;
     overflow-x: auto;
     gap: 15px;
-    padding: 10px;
-
-    scroll-snap-type: x mandatory;
-}
-.dashboard-img {
-    width: 100%;          /* ⬅️ 限制在容器内 */
-    max-width: 100%;      /* ⬅️ 不允许超出 */
-    height: auto;
-
-    border-radius: 10px;
-
-    border: 2px solid rgba(120,180,255,0.6);
-
-    box-shadow:
-        0 0 10px rgba(80,150,255,0.5),
-        0 0 20px rgba(80,150,255,0.3);
 }
 
-/* 👇 只影响兴趣爱好里的图片 */
 .hobby-scroll img {
-    height: 220px;           /* ⬅️ 统一高度 */
-    width: auto;             /* ⬅️ 宽度自适应（关键！） */
-
+    height: 220px;
+    border-radius: 14px;
     flex-shrink: 0;
-
-    scroll-snap-align: center;
-
-    border-radius: 10px;
-
-    border: 2px solid rgba(120,180,255,0.6);
-
-    box-shadow:
-        0 0 10px rgba(80,150,255,0.5),
-        0 0 20px rgba(80,150,255,0.3);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
-/* PDF */
-iframe {
-    width: 100%;
-    height: 60vh;   
-    border-radius: 10px;
-}
-
-/* 按钮 */
 .btn {
     width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
+    padding: 12px;
     margin-top: 10px;
-    background: linear-gradient(135deg,#6aa9ff,#8fd3ff);
+    border-radius: 12px;
+    border: none;
+    background: #0071e3;
     color: white;
+    transition: 0.25s;
 }
 
-/* 左右按钮 */
+.btn:hover {
+    background: #005bb5;
+}
+
 .row {
     display: flex;
     gap: 10px;
@@ -169,86 +190,45 @@ iframe {
     display: none;
 }
 
-/* 楷书 */
-.kai {
-    font-family: "KaiTi", "STKaiti", serif;
-    font-size: 26px;
-}
-
-/* ===== 大板块标题 ===== */
-.big-title {
-    text-align: center;
-
-    font-size: 34px;        /* ⬅️ 字号再大 */
-    font-weight: 900;       /* ⬅️ 更加粗 */
-
-    color: white;
-
-    margin-top: 50px;       /* ⬅️ 前面空一行（关键） */
-    margin-bottom: 15px;
-
-    /* 黑色描边 */
-    -webkit-text-stroke: 1.5px black;
-
-    /* 蓝色发光（更明显） */
-    text-shadow:
-        0 0 12px rgba(100,150,255,1),
-        0 0 25px rgba(100,150,255,0.8),
-        0 0 40px rgba(100,150,255,0.5);
-}
-
-/* ===== 小标题升级 ===== */
-.sub-big {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-
-
 </style>
 </head>
 
 <body>
 
-<!-- 👤 个人简介 -->
+<!-- 👤 个人信息 -->
 <div class="section">
-    <div style="display:flex; gap:15px;">
-        <img src="images/photo.jpg" style="width:100px;height:130px;object-fit:cover;">
-        <div>
-            <div style="font-size:24px;font-weight:bold;">邓琪雯</div>
-            <div>西南交通大学</div>
-            <div>智能制造工程专业</div>
-            <div>重庆 | 2004.8</div>
-            <div>手机 15723490896</div>
-            <div>邮箱 dengqiwen0810@163.com</div>
+    <div class="card">
+        <div style="display:flex; gap:20px; align-items:center;">
+            <img src="images/photo.jpg" style="width:110px;height:140px;border-radius:12px;object-fit:cover;">
+            <div>
+                <div style="font-size:26px;font-weight:600;">邓琪雯</div>
+                <div>西南交通大学 · 智能制造工程</div>
+                <div>重庆 | 2004.8</div>
+                <div>📱 15723490896</div>
+                <div>📧 dengqiwen0810@163.com</div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- 🧠 个人能力 -->
+<!-- 能力 -->
 <div class="big-title">个人能力</div>
-
 <div class="section">
 
-    <div class="sub-big">SolidWorks能力</div>
-    <p>熟练使用 SolidWorks 进行零件建模、装配设计及工程图输出，掌握常用建模方法及装配约束，具备一定的机械结构设计与表达能力。</p>
+    <div class="card">
+        <div class="sub-big">SolidWorks能力</div>
+        <div class="desc">熟悉机械结构建模流程，具备从零件设计到装配表达的完整能力，能够独立完成中等复杂度产品建模。</div>
+    </div>
 
-    <!-- ===== 球阀 ===== -->
-    <div class="block">
+    <div class="card">
         <div class="title">球阀</div>
+        <div class="desc">完成球阀结构建模与装配设计，理解其密封与流体控制原理，并能够进行零件拆分与结构分析。</div>
 
         <div class="model-box">
-            <model-viewer 
-                src="models/qf.glb"
-                camera-controls
-                exposure="0.65"
-                shadow-intensity="2"
-                environment-image="neutral">
-            </model-viewer>
+            <model-viewer src="models/qf.glb" camera-controls></model-viewer>
         </div>
-        <button class="btn" onclick="toggleQF()">查看零件</button>
 
+        <button class="btn" onclick="toggleQF()">查看零件</button>
         <div class="row">
             <button class="btn" onclick="prevQF()">◀</button>
             <button class="btn" onclick="nextQF()">▶</button>
@@ -256,43 +236,20 @@ iframe {
 
         <div id="qfBox" class="hidden">
             <div class="model-box">
-                <model-viewer id="qfViewer"
-                    src="models/qf1.glb"
-                    camera-controls
-                    exposure="0.65"
-                    shadow-intensity="2"
-                    environment-image="neutral"
-                    camera-controls>
-                </model-viewer>
+                <model-viewer id="qfViewer" src="models/qf1.glb" camera-controls></model-viewer>
             </div>
         </div>
-
     </div>
 
-    <!-- ===== 涡轮减速器 ===== -->
-    <div class="block">
+    <div class="card">
         <div class="title">涡轮减速器</div>
+        <div class="desc">通过建模与爆炸图展示减速器内部结构关系，理解传动路径及关键部件作用。</div>
 
         <div class="model-box">
-            <model-viewer src="models/wl.glb" 
-                exposure="0.65"
-                shadow-intensity="2"
-                environment-image="neutral"
-                camera-controls
-                auto-rotate>
-            </model-viewer>
-        </div>
-        <p>爆炸图</p>
-        <div class="model-box">
-            <model-viewer src="models/wl_explode.glb" 
-                exposure="0.65"
-                shadow-intensity="2"
-                environment-image="neutral">
-            </model-viewer>
+            <model-viewer src="models/wl.glb" camera-controls auto-rotate></model-viewer>
         </div>
 
         <button class="btn" onclick="toggleWL()">查看零件</button>
-
         <div class="row">
             <button class="btn" onclick="prevWL()">◀</button>
             <button class="btn" onclick="nextWL()">▶</button>
@@ -300,122 +257,141 @@ iframe {
 
         <div id="wlBox" class="hidden">
             <div class="model-box">
-                <model-viewer id="wlViewer" 
-                    src="models/wl1.glb" 
-                    exposure="0.65"
-                    shadow-intensity="2"
-                    environment-image="neutral"
-                    camera-controls>
-            </model-viewer>
+                <model-viewer id="wlViewer" src="models/wl1.glb" camera-controls></model-viewer>
             </div>
+        </div> 
+    </div>
+
+    <div class="card">
+        <div class="sub-big">外语能力</div>
+        <p>CET-6 539 分</p>
+        <img class="normal-img" src="images/cet6.jpg">
+        <img class="normal-img" src="images/cet4.jpg">
+    </div>
+
+</div>
+
+<!-- 社会实践 -->
+<div class="big-title">社会实践</div>
+<div class="section">
+
+    <div class="card">
+        <div class="sub-big">道明竹编</div>
+        <div class="desc">通过实地调研与体验，深入理解传统工艺的制作流程与文化价值。</div>
+        <img class="normal-img" src="images/bamboo.jpg">
+    </div>
+
+    <div class="card">
+        <div class="sub-big">味绣巴蜀</div>
+        <img class="normal-img" src="images/sichuan1.jpg">
+        <img class="normal-img" src="images/sichuan2.jpg">
+    </div>
+
+    <div class="card">
+        <div class="sub-big">志愿者</div>
+        <img class="normal-img" src="images/volunteer.jpg">
+    </div>
+
+</div>
+
+<!-- 兴趣 -->
+<div class="big-title">兴趣爱好</div>
+<div class="section">
+    <div class="card">
+        <div class="desc">平时喜欢绘画与观察自然，通过视觉表达记录生活细节。</div>
+        <div class="hobby-scroll">
+            <img src="images/art1.jpg">
+            <img src="images/art2.jpg">
+            <img src="images/art3.jpg">
+            <img src="images/art4.jpg">
+            <img src="images/art5.jpg">
         </div>
     </div>
-
-    <!-- 外语 -->
-    <div class="sub-big">外语能力</div>
-    <p>具备良好的英语听说读写能力，能够熟练阅读英文技术资料，具备基本的技术沟通能力。</p>
-    <p>六级（CET-6）539分通过</p>
-
-    <img class="normal-img" src="images/cet6.jpg">
-    <img class="normal-img" src="images/cet4.jpg">
-
 </div>
 
-
-<!-- 🌍 社会实践 -->
-<div class="big-title">社会实践</div>
-
-<div class="section">
-
-    <div class="sub-big">三下乡：道明竹编</div>
-    <p>寒假社会实践｜道明竹编非遗调研与体验（2024.01）<p>
-    <p>参与三下乡社会实践，赴崇州市道明乡开展实地调研；走访竹编作坊并访谈非遗传承人，系统了解道明竹编的发展历程与工艺特点；参与基础竹编制作实践，掌握简单编织技巧；结合调研与体验，深化对传统手工艺传承与文化价值的认识。</p>
-    <img class="normal-img" src="images/bamboo.jpg">
-
-    <div class="sub-big">味绣巴蜀</div>
-    <p>课程社会实践｜巴蜀文化（川菜&蜀绣）调研（2025.04）<p>
-    <p>参与课程实践项目，赴成都郫都区开展实地调研，走访川菜博物馆与蜀绣公园；通过实地考察与参与式体验，系统了解川菜制作流程及蜀绣工艺特点；参与基础烹饪与刺绣体验，提升对传统技艺的理解；结合调研内容进行分析总结，感受非遗文化传承与创新路径的有机结合。</p>
-    <img class="normal-img" src="images/sichuan1.jpg">
-    <img class="normal-img" src="images/sichuan2.jpg">
-    
-    <div class="sub-big">志愿者实践</div>
-    <p>志愿服务｜重庆医科大学附属儿童医院门诊志愿者（2024.07）<p>
-    <p>参与医院暑期门诊志愿服务，负责患者就诊引导与分诊协助，维护就诊秩序；协助医护人员进行物资清点与整理，提高门诊运转效率；在高流量环境中提升沟通能力与服务意识。</p>
-    <img class="normal-img" src="images/volunteer.jpg">
-
-</div>
-
-<!-- 🎨 兴趣爱好 -->
-<div class="big-title">兴趣爱好</div>
-
-<div class="section">
-
-    <div class="scroll-x hobby-scroll">
-        <img src="images/art1.jpg">
-        <img src="images/art2.jpg">
-        <img src="images/art3.jpg">
-        <img src="images/art4.jpg">
-        <img src="images/art5.jpg">
-    </div>
-
-</div>
-
-<!-- ✨ 结尾 -->
-<div style="text-align:center; padding:40px 0;">
-    <p style="color:white;">天行健，君子以自强不息</p>
-    <p style="color:white;">邓琪雯</p>
-    <p style="color:white;">📱 15723490896</p>
-    <p style="color:white;">📧 dengqiwen0810@163.com</p>
+<!-- 结尾 -->
+<div style="text-align:center; padding:60px 0; color:#666;">
+    <p>天行健，君子以自强不息</p>
+    <p>邓琪雯</p>
 </div>
 
 <script>
 
-/* ===== 球阀 ===== */
+const cards = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        } else {
+            entry.target.classList.remove('show');
+        }
+    });
+}, {
+    threshold: 0,
+    rootMargin: "0px 0px -20% 0px"
+});
+
+/* ===== 点击/触摸动画（全设备）===== */
+
+cards.forEach((card, i) => {
+
+    observer.observe(card);
+    setTimeout(() => {
+        card.classList.add('show');
+    }, i * 50);
+
+    // ===== 点击（PC）=====
+    card.addEventListener('click', () => {
+        card.classList.add('active');
+
+        setTimeout(() => {
+            card.classList.remove('active');
+        }, 200);
+    });
+
+    // ===== 触摸（手机）=====
+    card.addEventListener('touchstart', () => {
+        card.classList.add('active');
+    });
+
+    card.addEventListener('touchend', () => {
+        setTimeout(() => {
+            card.classList.remove('active');
+        }, 150);
+    });
+
+});
+
+/* 球阀 */
 let qfIndex = 1;
-const qfTotal = 8; // 改成零件数量
+const qfTotal = 8;
 
 function toggleQF(){
     document.getElementById("qfBox").classList.toggle("hidden");
 }
-
 function nextQF(){
-    qfIndex++;
-    if(qfIndex > qfTotal) qfIndex = 1;
-    updateQF();
+    qfIndex = qfIndex % qfTotal + 1;
+    document.getElementById("qfViewer").src = "models/qf" + qfIndex + ".glb";
 }
-
 function prevQF(){
-    qfIndex--;
-    if(qfIndex < 1) qfIndex = qfTotal;
-    updateQF();
-}
-
-function updateQF(){
+    qfIndex = (qfIndex - 2 + qfTotal) % qfTotal + 1;
     document.getElementById("qfViewer").src = "models/qf" + qfIndex + ".glb";
 }
 
-
-/* ===== 涡轮减速器 ===== */
+/* 涡轮 */
 let wlIndex = 1;
 const wlTotal = 11;
 
 function toggleWL(){
     document.getElementById("wlBox").classList.toggle("hidden");
 }
-
 function nextWL(){
-    wlIndex++;
-    if(wlIndex > wlTotal) wlIndex = 1;
-    updateWL();
+    wlIndex = wlIndex % wlTotal + 1;
+    document.getElementById("wlViewer").src = "models/wl" + wlIndex + ".glb";
 }
-
 function prevWL(){
-    wlIndex--;
-    if(wlIndex < 1) wlIndex = wlTotal;
-    updateWL();
-}
-
-function updateWL(){
+    wlIndex = (wlIndex - 2 + wlTotal) % wlTotal + 1;
     document.getElementById("wlViewer").src = "models/wl" + wlIndex + ".glb";
 }
 
