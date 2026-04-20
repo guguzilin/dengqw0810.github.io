@@ -128,12 +128,19 @@ body {
     margin-top: 8px;
 }
 
-.model-viewer {
+model-viewer {
     width: 100%;
     height: 50vh;
     min-height: 260px;
-    background: #fff;
+
+    background: radial-gradient(circle at 50% 40%,
+        #f2f2f5 0%,
+        #e5e7eb 40%,
+        #d1d5db 100%
+    );
+
     border-radius: 16px;
+    touch-action: pan-y;
 }
 
 .model-box {
@@ -361,6 +368,32 @@ cards.forEach((card, i) => {
         }, 150);
     });
 
+});
+
+// ===== 移动端：优先页面滚动 =====
+document.querySelectorAll('model-viewer').forEach(viewer => {
+
+    let startY = 0;
+    let startX = 0;
+
+    viewer.addEventListener('touchstart', e => {
+        startY = e.touches[0].clientY;
+        startX = e.touches[0].clientX;
+    });
+
+    viewer.addEventListener('touchmove', e => {
+        const dy = Math.abs(e.touches[0].clientY - startY);
+        const dx = Math.abs(e.touches[0].clientX - startX);
+
+        // 👉 如果是纵向滑动 → 让页面滚动
+        if (dy > dx) {
+            viewer.style.pointerEvents = "none";
+
+            setTimeout(() => {
+                viewer.style.pointerEvents = "auto";
+            }, 200);
+        }
+    });
 });
 
 /* 球阀 */
