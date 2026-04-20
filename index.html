@@ -209,7 +209,8 @@ model-viewer {
             <img src="images/photo.jpg" style="width:110px;height:140px;border-radius:12px;object-fit:cover;">
             <div>
                 <div style="font-size:26px;font-weight:600;">邓琪雯</div>
-                <div>西南交通大学 · 智能制造工程</div>
+                <div>西南交通大学</div>
+                <div>智能制造工程</div>
                 <div>重庆 | 2004.8</div>
                 <div>📱 15723490896</div>
                 <div>📧 dengqiwen0810@163.com</div>
@@ -224,7 +225,7 @@ model-viewer {
 
     <div class="card">
         <div class="sub-big">SolidWorks能力</div>
-        <div class="desc">熟悉机械结构建模流程，具备从零件设计到装配表达的完整能力，能够独立完成中等复杂度产品建模。</div>
+        <div class="desc">具备较扎实的三维建模基础，熟悉SolidWorks从草图设计、特征建模到装配与工程图输出的完整流程。能够独立完成机械结构建模，并对结构合理性、装配关系及运动逻辑有一定理解，具备良好的工程思维与细节把控能力。</div>
     </div>
 
     <div class="card">
@@ -236,7 +237,7 @@ model-viewer {
                 src="models/qf.glb"
                 camera-controls
 
-                exposure="0.7"
+                exposure="0.65"
                 shadow-intensity="1"
                 shadow-softness="0.6"
 
@@ -246,37 +247,11 @@ model-viewer {
                 interaction-prompt="none"
             ></model-viewer>
         </div>
-
-        <button class="btn" onclick="toggleQF()">查看零件</button>
-        <div class="row">
-            <button class="btn" onclick="prevQF()">◀</button>
-            <button class="btn" onclick="nextQF()">▶</button>
-        </div>
-
-        <div id="qfBox" class="hidden">
-            <div class="model-box">
-                <model-viewer 
-                    id="qfViewer"
-                    src="models/qf1.glb"
-                    camera-controls
-
-                    exposure="0.55"
-                    shadow-intensity="1"
-                    shadow-softness="0.8"
-
-                    environment-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
-                    skybox-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
-
-                    tone-mapping="aces"
-                    interaction-prompt="none"
-                ></model-viewer>
-            </div>
-        </div>
     </div>
 
     <div class="card">
         <div class="title">涡轮减速器</div>
-        <div class="desc">通过建模与爆炸图展示减速器内部结构关系，理解传动路径及关键部件作用。</div>
+        <div class="desc">完成涡轮减速器的整体建模与装配，并通过爆炸图展示内部结构关系。理解其传动原理及力的传递路径，对关键部件（蜗杆、蜗轮等）的功能与配合关系有较清晰认识。</div>
 
         <div class="model-box">
             <model-viewer 
@@ -284,47 +259,21 @@ model-viewer {
                 camera-controls
                 auto-rotate
 
-                exposure="0.7"
+                exposure="0.65"
                 shadow-intensity="1"
                 shadow-softness="0.6"
                 environment-image="neutral"
+
                 tone-mapping="aces"
                 interaction-prompt="none"
             ></model-viewer>
         </div>
-
-        <button class="btn" onclick="toggleWL()">查看零件</button>
-        <div class="row">
-            <button class="btn" onclick="prevWL()">◀</button>
-            <button class="btn" onclick="nextWL()">▶</button>
-        </div>
-
-        <div id="wlBox" class="hidden">
-            <div class="model-box">
-                <model-viewer 
-                    id="wlViewer"
-                    src="models/wl1.glb"
-                    camera-controls
-
-                    exposure="0.55"
-                    shadow-intensity="1"
-                    shadow-softness="0.8"
-
-                    environment-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
-                    skybox-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
-
-                    tone-mapping="aces"
-                    interaction-prompt="none"
-                ></model-viewer>
-            </div>
-        </div> 
     </div>
 
     <div class="card">
         <div class="sub-big">外语能力</div>
-        <p>CET-6 539 分</p>
+        <div class="desc">通过大学英语六级考试，具备良好的英文阅读能力与基础技术文献理解能力，能够查阅英文资料辅助专业学习与项目开发。</div>
         <img class="normal-img" src="images/cet6.jpg">
-        <img class="normal-img" src="images/cet4.jpg">
     </div>
 
 </div>
@@ -334,19 +283,21 @@ model-viewer {
 <div class="section">
 
     <div class="card">
-        <div class="sub-big">道明竹编</div>
-        <div class="desc">通过实地调研与体验，深入理解传统工艺的制作流程与文化价值。</div>
+        <div class="sub-big">三下乡道明竹编</div>
+        <div class="desc">参与崇州市道明乡竹编非遗文化调研，通过实地走访与手工体验，系统了解竹编工艺流程及其在现代设计中的应用。对传统工艺的传承与创新有了更深入的认识，同时提升了调研与总结能力。</div>
         <img class="normal-img" src="images/bamboo.jpg">
     </div>
 
     <div class="card">
-        <div class="sub-big">味绣巴蜀</div>
+        <div class="sub-big">味绣巴蜀实地调研</div>
+        <div class="desc">围绕巴蜀地区传统饮食与文化展开调研，通过实地走访与资料整理，分析地方文化在现代传播中的表达方式。增强了对地域文化的理解。</div>
         <img class="normal-img" src="images/sichuan1.jpg">
         <img class="normal-img" src="images/sichuan2.jpg">
     </div>
 
     <div class="card">
-        <div class="sub-big">志愿者</div>
+        <div class="sub-big">志愿者服务</div>
+        <div class="desc">参与医院门诊志愿服务，主要负责患者引导、分诊协助及基础事务支持。在实践中提升了沟通能力与服务意识，能够在复杂环境中保持耐心与责任感，具备良好的团队协作能力。</div>
         <img class="normal-img" src="images/volunteer.jpg">
     </div>
 
@@ -357,6 +308,7 @@ model-viewer {
 <div class="section">
     <div class="card">
         <div class="desc">平时喜欢绘画与观察自然，通过视觉表达记录生活细节。</div>
+        <div class="desc">滑动查看更多</div>
         <div class="hobby-scroll">
             <img src="images/art1.jpg">
             <img src="images/art2.jpg">
@@ -369,8 +321,10 @@ model-viewer {
 
 <!-- 结尾 -->
 <div style="text-align:center; padding:60px 0; color:#666;">
-    <p>天行健，君子以自强不息</p>
-    <p>邓琪雯</p>
+    <div class="desc">道阻且长，行则将至</div>
+    <div class="desc">📱 15723490896</div>
+    <div class="desc">📧 dengqiwen0810@163.com</div>
+
 </div>
 
 <script>
@@ -421,7 +375,6 @@ cards.forEach((card, i) => {
 
 });
 
-// ===== 移动端：优先页面滚动 =====
 // ===== 移动端：纵向滑动优先（稳定版）=====
 document.querySelectorAll('model-viewer').forEach(viewer => {
 
@@ -456,38 +409,6 @@ document.querySelectorAll('model-viewer').forEach(viewer => {
     });
 
 });
-
-/* 球阀 */
-let qfIndex = 1;
-const qfTotal = 8;
-
-function toggleQF(){
-    document.getElementById("qfBox").classList.toggle("hidden");
-}
-function nextQF(){
-    qfIndex = qfIndex % qfTotal + 1;
-    document.getElementById("qfViewer").src = "models/qf" + qfIndex + ".glb";
-}
-function prevQF(){
-    qfIndex = (qfIndex - 2 + qfTotal) % qfTotal + 1;
-    document.getElementById("qfViewer").src = "models/qf" + qfIndex + ".glb";
-}
-
-/* 涡轮 */
-let wlIndex = 1;
-const wlTotal = 11;
-
-function toggleWL(){
-    document.getElementById("wlBox").classList.toggle("hidden");
-}
-function nextWL(){
-    wlIndex = wlIndex % wlTotal + 1;
-    document.getElementById("wlViewer").src = "models/wl" + wlIndex + ".glb";
-}
-function prevWL(){
-    wlIndex = (wlIndex - 2 + wlTotal) % wlTotal + 1;
-    document.getElementById("wlViewer").src = "models/wl" + wlIndex + ".glb";
-}
 
 </script>
 
