@@ -140,7 +140,7 @@ model-viewer {
     );
 
     border-radius: 16px;
-    touch-action: pan-y;
+    touch-action: manipulation;
 }
 
 .model-box {
@@ -232,7 +232,20 @@ model-viewer {
         <div class="desc">完成球阀结构建模与装配设计，理解其密封与流体控制原理，并能够进行零件拆分与结构分析。</div>
 
         <div class="model-box">
-            <model-viewer src="models/qf.glb" camera-controls></model-viewer>
+            <model-viewer 
+                src="models/qf.glb"
+                camera-controls
+
+                exposure="0.55"
+                shadow-intensity="1"
+                shadow-softness="0.8"
+
+                environment-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+                skybox-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+
+                tone-mapping="aces"
+                interaction-prompt="none"
+            ></model-viewer>
         </div>
 
         <button class="btn" onclick="toggleQF()">查看零件</button>
@@ -243,7 +256,21 @@ model-viewer {
 
         <div id="qfBox" class="hidden">
             <div class="model-box">
-                <model-viewer id="qfViewer" src="models/qf1.glb" camera-controls></model-viewer>
+                <model-viewer 
+                    id="qfViewer"
+                    src="models/qf1.glb"
+                    camera-controls
+
+                    exposure="0.55"
+                    shadow-intensity="1"
+                    shadow-softness="0.8"
+
+                    environment-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+                    skybox-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+
+                    tone-mapping="aces"
+                    interaction-prompt="none"
+                ></model-viewer>
             </div>
         </div>
     </div>
@@ -253,7 +280,21 @@ model-viewer {
         <div class="desc">通过建模与爆炸图展示减速器内部结构关系，理解传动路径及关键部件作用。</div>
 
         <div class="model-box">
-            <model-viewer src="models/wl.glb" camera-controls auto-rotate></model-viewer>
+            <model-viewer 
+                src="models/wl.glb"
+                camera-controls
+                auto-rotate
+
+                exposure="0.55"
+                shadow-intensity="1"
+                shadow-softness="0.8"
+
+                environment-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+                skybox-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+
+                tone-mapping="aces"
+                interaction-prompt="none"
+            ></model-viewer>
         </div>
 
         <button class="btn" onclick="toggleWL()">查看零件</button>
@@ -264,7 +305,21 @@ model-viewer {
 
         <div id="wlBox" class="hidden">
             <div class="model-box">
-                <model-viewer id="wlViewer" src="models/wl1.glb" camera-controls></model-viewer>
+                <model-viewer 
+                    id="wlViewer"
+                    src="models/wl1.glb"
+                    camera-controls
+
+                    exposure="0.55"
+                    shadow-intensity="1"
+                    shadow-softness="0.8"
+
+                    environment-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+                    skybox-image="https://modelviewer.dev/shared-assets/environments/commerce.hdr"
+
+                    tone-mapping="aces"
+                    interaction-prompt="none"
+                ></model-viewer>
             </div>
         </div> 
     </div>
@@ -371,29 +426,39 @@ cards.forEach((card, i) => {
 });
 
 // ===== 移动端：优先页面滚动 =====
+// ===== 移动端：纵向滑动优先（稳定版）=====
 document.querySelectorAll('model-viewer').forEach(viewer => {
 
-    let startY = 0;
     let startX = 0;
+    let startY = 0;
+    let isScrolling = false;
 
     viewer.addEventListener('touchstart', e => {
-        startY = e.touches[0].clientY;
         startX = e.touches[0].clientX;
-    });
+        startY = e.touches[0].clientY;
+        isScrolling = false;
+    }, { passive: true });
 
     viewer.addEventListener('touchmove', e => {
-        const dy = Math.abs(e.touches[0].clientY - startY);
-        const dx = Math.abs(e.touches[0].clientX - startX);
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
 
-        // 👉 如果是纵向滑动 → 让页面滚动
-        if (dy > dx) {
+        // 👉 一旦判断为竖滑 → 直接让页面接管
+        if (!isScrolling && Math.abs(dy) > Math.abs(dx)) {
+            isScrolling = true;
+
+            viewer.style.touchAction = "pan-y";
             viewer.style.pointerEvents = "none";
-
-            setTimeout(() => {
-                viewer.style.pointerEvents = "auto";
-            }, 200);
         }
+    }, { passive: true });
+
+    viewer.addEventListener('touchend', () => {
+        // 👉 很快恢复（关键：不能太慢）
+        setTimeout(() => {
+            viewer.style.pointerEvents = "auto";
+        }, 50);
     });
+
 });
 
 /* 球阀 */
